@@ -11,7 +11,7 @@ app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div(
     children=[
-        html.H1(children="Hello Dash 2020"),
+        html.H1(children="Coronamos"),
         html.Div(children="""Dash: A web application framework for Python."""),
         dcc.Graph(
             id="example-graph",

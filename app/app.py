@@ -3,6 +3,8 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import flask
+import pandas as pd
+from dbConnection import startConn
 
 
 server = flask.Flask(__name__)
@@ -35,5 +37,11 @@ app.layout = html.Div(
 if __name__ == "__main__":
     import os
 
+
     debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
-    app.run_server(host="0.0.0.0", port=8050, debug=debug)
+    conn = startConn()
+    SQL_Query = pd.read_sql('SELECT * FROM aseguramiento_edad', conn)
+    print(SQL_Query.columns)
+    
+    app.run_server(host="0.0.0.0", port=8050, debug=True)
+

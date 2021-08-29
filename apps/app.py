@@ -1,4 +1,10 @@
 import dash
+
+app = dash.Dash(__name__, suppress_callback_exceptions=True,
+                meta_tags=[{'name': 'viewport',
+                            'content': 'width=device-width, initial-scale=1.0'}]
+                )
+server = app.server
 # import dash_bootstrap_components as dbc
 # import dash_core_components as dcc
 # import dash_html_components as html
@@ -43,9 +49,3 @@ import dash
 #     print(SQL_Query.columns)
     
 #     app.run_server(host="0.0.0.0", port=8050, debug=True)
-
-app = dash.Dash(__name__, suppress_callback_exceptions=True,
-                meta_tags=[{'name': 'viewport',
-                            'content': 'width=device-width, initial-scale=1.0'}]
-                )
-server = app.server

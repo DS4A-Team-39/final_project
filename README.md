@@ -2,7 +2,7 @@
 ## Build and run
 
 ```sh
-docker rmi -f dash 
+docker rmi -f dash
 
 docker build -t dash .
 

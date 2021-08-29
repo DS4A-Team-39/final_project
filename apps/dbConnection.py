@@ -1,6 +1,5 @@
 import psycopg2 as ps
 import sys 
-import boto3 
 import os 
 import pandas as pd
 

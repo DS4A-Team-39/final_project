@@ -7,7 +7,7 @@ import pathlib
 from app import app
 
 # get relative data folder
-PATH = pathlib.Path(__file__).parent
+PATH = pathlib.Path(__file__).parent.parent
 DATA_PATH = PATH.joinpath("./datasets").resolve()
 
 dfv = pd.read_csv(DATA_PATH.joinpath("vgsales.csv"))  # GregorySmith Kaggle

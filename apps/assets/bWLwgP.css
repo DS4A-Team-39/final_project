@@ -37,6 +37,95 @@
 
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Nunito,sans-serif;
+}
+
+.Main {
+  display: flex;
+  
+}
+
+.Autores {
+  height: 100vh;
+  width: 12.5%;
+  background-color: salmon;
+  border-right: 1px solid #000;
+
+}
+
+.Observatorio {
+  height: 100vh;
+  width: 87.5%;
+  background-color: papayawhip;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #000;
+}
+
+.Dashboard
+{
+    display: flex;
+    height: 100%;
+}
+
+.Dashboard__Mapa
+{
+    width: 100%;
+    background-color: #E5E5E5;
+    border-top: 1px solid #000;
+}
+
+.Dashboard__Datos
+{
+    width: 20%;
+    background-color: teal;
+}
+
+.Autores__AlcaldiaImagen
+{
+    max-width: 180px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 7.5%;
+    align-content: center;
+}
+
+.Autores__integrante
+{
+    margin-top: 50px;
+}
+
+.Integrante
+{
+    display:flex;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto 20px;
+}
+
+.Integrante__nombre
+{
+    display: inline;
+    margin-left: 10px;
+    font-size: 1.8rem;
+    color: black;
+    text-decoration: none;
+}
+
+.Integrante__icono
+{
+    width: 25px;
+}
+
+.Titulo {
+  text-align: center;
+}
+
 .container {
   position: relative;
   width: 100%;

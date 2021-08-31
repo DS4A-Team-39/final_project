@@ -4,5 +4,5 @@ COPY ./apps /apps
 WORKDIR /apps
 RUN set -ex && \
     pip install -r requirements.txt 
-EXPOSE 8050
+EXPOSE 8040
 CMD ["python", "index.py"]

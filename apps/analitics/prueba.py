@@ -112,7 +112,7 @@ def display_value(grupo_chosen):
     beneficiarios_icbf = beneficiarios_icbf.reset_index()
     beneficiarios_icbf["numero_comuna"] = beneficiarios_icbf["num_comuna"].astype("int")
     beneficiarios_icbf["prop_niños_benef_icbf"] = beneficiarios_icbf["icbf_ninos_beneficiarios"].astype("int") / pob2018_primera_inf
-    path='apps/datasets/ComunasWGS84.geojson'
+    path='./datasets/ComunasWGS84.geojson'
     geo_str = json.dumps(json.load(open(path, 'r'))) # map data
     nameb=json.loads(geo_str)
     scale=np.linspace(beneficiarios_icbf["prop_niños_benef_icbf"].min(),beneficiarios_icbf["prop_niños_benef_icbf"].max(),10,dtype=float).tolist()

@@ -6,7 +6,7 @@ docker rmi -f dash
 
 docker build -t dash .
 
-docker run -p 8040:8050 dash
+docker run -p 8050:8050 dash
 ```
 ## Access the page
 

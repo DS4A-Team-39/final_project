@@ -19,16 +19,7 @@ from app import app
 from dbConnection import startConn
 
 # get relative data folder
-conn = startConn()
-dfv = pd.read_sql('SELECT * FROM aseguramiento_edad', conn)
-salud = pd.read_sql('SELECT * FROM salud_bucaramanga', conn)
-poblacion = pd.read_sql('SELECT * FROM poblacion', conn)
-sisben = pd.read_sql('SELECT * FROM sisben', conn)
 sales_list= ['f', 'M']
-
-PATH = pathlib.Path(__file__).parent.parent
-DATA_PATH = PATH.joinpath("./graficos").resolve()
-DATA_PATH = DATA_PATH.joinpath("mapaPrueba.html")
 
 layout = html.Div([
     html.H1('Prueba Mapa', style={"textAlign": "center"}),
@@ -36,7 +27,7 @@ layout = html.Div([
     html.Div([
         html.Div(dcc.Dropdown(
             id='grupos-dropdown', value='Strategy', clearable=False,
-            options=[{'label': x, 'value': x} for x in sorted(salud.curso_de_vida.unique())]
+            options=[{'label': x, 'value': x} for x in sorted(sales_list)]
         ), className='six columns'),
 
         
@@ -57,6 +48,8 @@ layout = html.Div([
     ]
 )
 def display_value(grupo_chosen):
+
+    conn = startConn()
 
     salud = pd.read_sql('SELECT * FROM salud_bucaramanga', conn)
     poblacion = pd.read_sql('SELECT * FROM poblacion', conn)

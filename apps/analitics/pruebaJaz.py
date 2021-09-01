@@ -257,20 +257,20 @@ def display_value_two(grupo_chosen):
     cober2=cober2.rename(columns={'value':'poblacion','comuna_id_y':'comuna_id','año_y':'año'}) # rename the columns because cober2 is a dataframe the output.
     cober2['casos']=cober2['casos'].fillna(0) # fill NaN bacause the 0 is NAN in this case, this to be part the analysis.
     cober2.iloc[28:]['nombre_comuna']=['La Ciudadela','Cabecera del llano','Centro','Lagos del Cacique','La Pedregosa','Centro'] # Add the commune name information.
-    cober2['Tasa de cobertura salud verificada']=cober2['casos']/cober2['poblacion']*100 # calculate th
+    cober2['Casos de desnutrición reportados']=cober2['casos']/cober2['poblacion']*100 # calculate th
         
     
     path='apps/datasets/ComunasWGS84.geojson'
     geo_str = json.dumps(json.load(open(path, 'r'))) # map data
     nameb=json.loads(geo_str)
-    scale=np.linspace(cober2['Tasa de cobertura salud verificada'].min(),cober2['Tasa de cobertura salud verificada'].max(),10,dtype=float).tolist()
+    scale=np.linspace(cober2['Casos de desnutrición reportados'].min(),cober2['Casos de desnutrición reportados'].max(),10,dtype=float).tolist()
 
     fig = px.choropleth_mapbox(cober2[cober2['año']==2020], geojson=nameb,
                            featureidkey = 'properties.NOMBRE', # key the geo data
                            locations= "comuna_id", # key the dataframe with geodata.
-                           color='Tasa de cobertura salud verificada',# columns to plot value
+                           color='Casos de desnutrición reportados',# columns to plot value
                            color_continuous_scale="viridis", # select colors to map
-                           range_color= (cober2['Tasa de cobertura salud verificada'].min(), cober2['Tasa de cobertura salud verificada'].max()), # scale
+                           range_color= (cober2['Casos de desnutrición reportados'].min(), cober2['Casos de desnutrición reportados'].max()), # scale
                            mapbox_style="open-street-map", # backgoung
                            zoom=11.5, center = {"lat": 7.122413, "lon": -73.120446}, # center of the map
                            opacity=0.7, 

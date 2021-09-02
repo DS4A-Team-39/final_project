@@ -56,31 +56,27 @@ layout = html.Div([
                 for key, value in list_education_features.items()]
         ), className='six columns'),
     ], className='row'),
-
     dcc.Graph(id='bar-tasas', figure={}),
 
+    html.Div([
     html.Div([
         html.Div(dcc.Dropdown(
             id='education-matricula-observacion-dropdown', value='edad', clearable=False,
             options=[{'label': key, 'value': value} for key, value in observacion.items()]
-        ), className='six columns'),
+        ), className='three columns'),
 
         html.Div(dcc.Dropdown(
             id='education-matricula-nivel-dropdown', value='media', clearable=False,
             options=[{'label': key, 'value': value} for key, value in nivel.items()]
-        ), className='six columns'),
+        ), className='three columns'),
 
         html.Div(dcc.Dropdown(
             id='education-matricula-ano-dropdown', value='2018', clearable=False,
             options=[{'label':x, 'value': x} for x in ano]
-        ), className='six columns'),
+        ), className='three columns'),
     ], className='row'),
-
     dcc.Graph(id='bar-matricula', figure={}),
-
-
-    
-
+    ])
 ])
 
 conn = startConn()

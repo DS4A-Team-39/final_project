@@ -41,7 +41,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Nunito,sans-serif;
+  font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
 }
 
 .Main {
@@ -52,18 +52,20 @@
 .Autores {
   height: 100vh;
   width: 12.5%;
-  background-color: salmon;
+  background-color: #6797be;
   border-right: 1px solid #000;
-
+  position: fixed;
 }
 
 .Observatorio {
   height: 100vh;
   width: 87.5%;
-  background-color: papayawhip;
+  background-color: #004884;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #000;
+  position: relative;
+  left: 12.5%;
 }
 
 .Dashboard
@@ -77,6 +79,7 @@
     width: 100%;
     background-color: #E5E5E5;
     border-top: 1px solid #000;
+
 }
 
 .Dashboard__Datos
@@ -124,6 +127,12 @@
 
 .Titulo {
   text-align: center;
+  position: sticky;
+  color: #fff;
+  
+}
+.Mapa__grafico {
+  width: 33%;
 }
 
 .container {
@@ -162,7 +171,7 @@
   .two.columns                    { width: 13.3333333333%; }
   .three.columns                  { width: 22%;            }
   .four.columns                   { width: 30.6666666667%; }
-  .five.columns                   { width: 39.3333333333%; }
+  .five.columns                   { width: 33%; }
   .six.columns                    { width: 48%;            }
   .seven.columns                  { width: 56.6666666667%; }
   .eight.columns                  { width: 65.3333333333%; }

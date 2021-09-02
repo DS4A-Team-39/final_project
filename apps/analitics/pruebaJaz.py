@@ -30,17 +30,13 @@ layout = html.Div([
         html.Div(dcc.Dropdown(
             id='grupos-dropdown-jaz', value='Strategy', clearable=False,
             options=[{'label': x, 'value': x} for x in sorted(sales_list)]
-        ), className='six columns'),
-
-        
+        ), className='one columns'), 
     ], className='row'),
-
-    dcc.Graph(id='my-bar-prueba-jaz', figure={}),
-    dcc.Graph(id='my-bar-prueba-jaz2', figure={}),
-
+    html.Br(),
     
-    # html.Iframe(id='map', src='/apps/graficos/mapaPrueba.html', width ='100%', height='600'),
+    dcc.Graph(id='my-bar-prueba-jaz', figure={}, className = "five columns"),
 
+    dcc.Graph(id='my-bar-prueba-jaz2', figure={}, className = "five columns"),
 ])
 
 @app.callback(
@@ -238,7 +234,6 @@ def display_value_two(grupo_chosen):
     malnutrition_set=malnutrition_set[malnutrition_set['comuna_id'].isin(range(0,18))] # filter comune for eliminate data from 'corregimientos'
     malnutrition_set=malnutrition_set.rename(columns={"count":"casos"}) # remane columns to be friendly dataset
 
-
     pob=poblacion[['comuna','id','primera_infancia_2021']]# filter data, drop innecesaries columns
     pob=pob.rename(columns={"id": "comuna_id"}) # remane columns for key 
     pob['primera_infancia_2020']=(pob['primera_infancia_2021']//1.13).astype('int') # calculte the poblation integer with 1.13 rate (DANE)
@@ -256,21 +251,22 @@ def display_value_two(grupo_chosen):
     cober2=cober2.drop(columns=['año_x','comuna_id_x','index']) # remove repeat columns.
     cober2=cober2.rename(columns={'value':'poblacion','comuna_id_y':'comuna_id','año_y':'año'}) # rename the columns because cober2 is a dataframe the output.
     cober2['casos']=cober2['casos'].fillna(0) # fill NaN bacause the 0 is NAN in this case, this to be part the analysis.
-    cober2.iloc[28:]['nombre_comuna']=['La Ciudadela','Cabecera del llano','Centro','Lagos del Cacique','La Pedregosa','Centro'] # Add the commune name information.
-    cober2['Casos de desnutrición reportados']=cober2['casos']/cober2['poblacion']*100 # calculate th
+    
+    #cober2.iloc[28:]['nombre_comuna']=['La Ciudadela','Cabecera del llano','Centro','Lagos del Cacique','La Pedregosa','Centro'] # Add the commune name information.
+    cober2['Casos de desnutricion reportados']=cober2['casos']/cober2['poblacion']*100 # calculate th
         
     
     path='apps/datasets/ComunasWGS84.geojson'
     geo_str = json.dumps(json.load(open(path, 'r'))) # map data
     nameb=json.loads(geo_str)
-    scale=np.linspace(cober2['Casos de desnutrición reportados'].min(),cober2['Casos de desnutrición reportados'].max(),10,dtype=float).tolist()
+    scale=np.linspace(cober2['Casos de desnutricion reportados'].min(),cober2['Casos de desnutricion reportados'].max(),10,dtype=float).tolist()
 
     fig = px.choropleth_mapbox(cober2[cober2['año']==2020], geojson=nameb,
                            featureidkey = 'properties.NOMBRE', # key the geo data
                            locations= "comuna_id", # key the dataframe with geodata.
-                           color='Casos de desnutrición reportados',# columns to plot value
+                           color='Casos de desnutricion reportados',# columns to plot value
                            color_continuous_scale="viridis", # select colors to map
-                           range_color= (cober2['Casos de desnutrición reportados'].min(), cober2['Casos de desnutrición reportados'].max()), # scale
+                           range_color= (cober2['Casos de desnutricion reportados'].min(), cober2['Casos de desnutricion reportados'].max()), # scale
                            mapbox_style="open-street-map", # backgoung
                            zoom=11.5, center = {"lat": 7.122413, "lon": -73.120446}, # center of the map
                            opacity=0.7, 

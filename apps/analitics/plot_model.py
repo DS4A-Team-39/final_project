@@ -42,8 +42,8 @@ layout = html.Div([
 
 def cluster(n_clusters, X):
     kmeans = KMeans(n_clusters=n_clusters)
-    kmeans.fit(X)
-    Z = kmeans.predict(X)
+    kmeans.fit(pd.DataFrame(components))
+    Z = kmeans.predict(pd.DataFrame(components))
     return kmeans, Z
 
 @app.callback(
@@ -83,7 +83,7 @@ def graph_clusters(n_clusters):
     # Number of clusters
     # n_clusters = max_clusters would be trivial clustering.
     max_clusters = len(df)
-    model, Z = cluster(n_clusters, X)
+    model, Z = cluster(n_clusters, pd.DataFrame(components))
 
     # Plot
     fig = px.scatter(components, x=0, y=1, color=Z.astype("str"), labels={'0': 'PC 1', '1': 'PC 2'}, size=df['poblacion_2020'], opacity=0.6,

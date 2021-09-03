@@ -120,6 +120,10 @@
     text-decoration: none;
 }
 
+a.Integrante__nombre:hover {
+  color: white;
+}
+
 .Integrante__icono
 {
     width: 25px;

@@ -2,13 +2,14 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import flask
+from flask import render_template
 
 # Connect to main app.py file
 from app import app
 from app import server
 
 # Connect to your app pages
-from analitics import vgames, prueba, pruebaJaz, education, survival, about, plot_model
+from analitics import  pruebaJaz, education, survival, home, protection, about, plot_model
 
 
 app.layout = html.Div([
@@ -18,7 +19,7 @@ app.layout = html.Div([
             dcc.Location(id='url', refresh=False),
             html.Div([                           
                 html.Img(src = app.get_asset_url('home.png'), className = "Integrante__icono"),    
-                dcc.Link('Home', href='/', className= "Integrante__nombre")
+                dcc.Link('Home', href='/home', className= "Integrante__nombre")
                 ], className="Integrante"),
             html.Div([
                 html.Img(src = app.get_asset_url('crecimiento.svg'), className = "Integrante__icono"),
@@ -63,6 +64,8 @@ def display_page(pathname):
         return "En Proceso"
     if pathname == '/development':
         return education.layout
+    if pathname == '/home':
+        return home.layout
     if pathname == '/survival':
         return survival.layout  
     if pathname == '/models'  :
@@ -71,6 +74,8 @@ def display_page(pathname):
         return about.layout
     if pathname == '/prueba'  :
         return pruebaJaz.layout
+    if pathname == '/protection':
+        return protection.layout 
     else:
         return "404 Page Error! Please choose a link"
 

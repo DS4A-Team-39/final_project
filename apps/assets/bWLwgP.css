@@ -115,7 +115,7 @@
 {
     display: inline;
     margin-left: 10px;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: black;
     text-decoration: none;
 }
@@ -133,6 +133,14 @@
 }
 .Mapa__grafico {
   width: 33%;
+}
+
+.Parrafo__model {
+  margin-left: 15px;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  margin-right: 20px;
+
 }
 
 .container {

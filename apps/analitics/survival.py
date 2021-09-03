@@ -198,7 +198,7 @@ year={'Año 2020': 2020,
         'Año 2019':2019}
 
 layout = html.Div([
-    html.H1('Prueba Mapa Aurelio', style={"textAlign": "center"}),
+    html.H1('Survival', style={"textAlign": "center"}),
 
     
     

@@ -16,7 +16,7 @@ from app import app
 from dbConnection import startConn
 
 layout = html.Div([
-    html.H1('Prueba Mapa', style={"textAlign": "center"}),
+    html.H1('Clusterization model by components', style={"textAlign": "center"}),
 
     html.Div([
         html.Div(dcc.Slider(
@@ -31,12 +31,12 @@ layout = html.Div([
             5:'5 clusters',
             7:'7 clusters',
         }
-         ), className='six columns'),
-
-        
+         ), className='nine columns'),
     ], className='row'),
 
     dcc.Graph(id='my-bar-modelo', figure={}),
+
+    html.P("K means clustering of the vulnerability current situation in the main zones of Bucaramanga, it includes health indicators, education, social programmes inclusion at ICBF, malnutrition, access to public services and internet. Features are aggregated by principal components method.", className = 'Parrafo__model')
 ])
 
 

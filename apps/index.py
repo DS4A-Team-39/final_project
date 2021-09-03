@@ -9,7 +9,7 @@ from app import app
 from app import server
 
 # Connect to your app pages
-from analitics import  pruebaJaz, education, survival, home, protection, about, plot_model
+from analitics import education, survival, home, protection, about, plot_model
 
 
 app.layout = html.Div([
@@ -60,8 +60,6 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/protection':
-        return "En Proceso"
     if pathname == '/development':
         return education.layout
     if pathname == '/home':
@@ -72,8 +70,6 @@ def display_page(pathname):
         return plot_model.layout
     if pathname == '/about'  :
         return about.layout
-    if pathname == '/prueba'  :
-        return pruebaJaz.layout
     if pathname == '/protection':
         return protection.layout 
     else:
@@ -81,4 +77,4 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(host="0.0.0.0", debug=True)
+    app.run_server(host="0.0.0.0")

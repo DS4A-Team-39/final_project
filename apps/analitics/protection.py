@@ -240,6 +240,6 @@ def plot_tasas_crimes(feature):
      for j,grupo_edad in enumerate(tmp['grupo_edad'].unique()):
           data_array.append(go.Bar(name=trans_age_group[grupo_edad], x=tmp[tmp['grupo_edad']==grupo_edad]['periodo'], y=tmp[tmp['grupo_edad']==grupo_edad]['rate']))
      fig = go.Figure(data=data_array)
-     fig.update_layout(barmode='group', yaxis_title=trans_ind[feature], title_text='Crimes and violence rates',
+     fig = fig.update_layout(barmode='group', yaxis_title=trans_ind[feature], title_text='Crimes and violence rates',
                     title_x = 0.5 ,yaxis = dict(tickfont = dict(size=14)),xaxis = dict(tickfont = dict(size=14)),font=dict(size=16),plot_bgcolor="#F2F9F0")
      return fig

@@ -327,7 +327,7 @@ def display_value_salud(grupo_chosen):
     cober2['id']=cober2['id'].astype('int')
     cober2['Tasa verificada de cobertura en salud normalizada']=(cober2['Tasa verificada de cobertura en salud']-cober2['Tasa verificada de cobertura en salud'].min())/(cober2['Tasa verificada de cobertura en salud'].max()-cober2['Tasa verificada de cobertura en salud'].min())
     
-    path='apps/datasets/ComunasWGS84.geojson'
+    path='datasets/ComunasWGS84.geojson'
     geo_str = json.dumps(json.load(open(path, 'r'))) # map data
     nameb=json.loads(geo_str)
     scale=np.linspace(cober2['Tasa verificada de cobertura en salud'].min(),cober2['Tasa verificada de cobertura en salud'].max(),10,dtype=float).tolist()
@@ -444,7 +444,7 @@ def display_value_malnutrition(year_chosen):
     cober2['Casos de desnutricion reportados']=cober2['casos']/cober2['poblacion']*100 # calculate the rate 
     cober2['Casos de desnutricion reportados normalizado']=(cober2['Casos de desnutricion reportados'].max()-cober2['Casos de desnutricion reportados'])/(cober2['Casos de desnutricion reportados'].max()-cober2['Casos de desnutricion reportados'].min())
     
-    path='apps/datasets/ComunasWGS84.geojson'
+    path='datasets/ComunasWGS84.geojson'
     geo_str = json.dumps(json.load(open(path, 'r'))) # map data
     nameb=json.loads(geo_str)
     scale=np.linspace(cober2['Casos de desnutricion reportados'].min(),cober2['Casos de desnutricion reportados'].max(),10,dtype=float).tolist()

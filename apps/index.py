@@ -2,13 +2,14 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import flask
+from flask import render_template
 
 # Connect to main app.py file
 from app import app
 from app import server
 
 # Connect to your app pages
-from analitics import vgames, prueba, pruebaJaz, education, survival
+from analitics import vgames, prueba, pruebaJaz, education, survival,home,protection
 
 
 app.layout = html.Div([
@@ -18,11 +19,12 @@ app.layout = html.Div([
             dcc.Location(id='url', refresh=False),
             html.Div([                           
                 html.Img(src = app.get_asset_url('home.png'), className = "Integrante__icono"),    
-                dcc.Link('Home', href='/', className= "Integrante__nombre")
+                dcc.Link('Home', href='/home', className= "Integrante__nombre")
                 ], className="Integrante"),
             html.Div([dcc.Link('Care', href='/care',  className= "Integrante__nombre")], className="Integrante"),
-            html.Div([dcc.Link('Development', href='/development',  className= "Integrante__nombre")], className="Integrante"),
+            html.Div([dcc.Link('Grouth', href='/development',  className= "Integrante__nombre")], className="Integrante"),
             html.Div([dcc.Link('Survival', href='/survival',  className= "Integrante__nombre")], className="Integrante"),
+            html.Div([dcc.Link('Protection', href='/protection',  className= "Integrante__nombre")], className="Integrante"),
             html.Div([dcc.Link('Model and tools', href='/models',  className= "Integrante__nombre")], className="Integrante"),
             
             html.Div([
@@ -53,6 +55,8 @@ def display_page(pathname):
         return "En Proceso"
     if pathname == '/development':
         return education.layout
+    if pathname == '/home':
+        return home.layout
     if pathname == '/survival':
         return survival.layout  
     if pathname == '/models'  :
@@ -61,6 +65,8 @@ def display_page(pathname):
         return "En proceso"
     if pathname == '/prueba'  :
         return pruebaJaz.layout
+    if pathname == '/protection':
+        return protection.layout 
     else:
         return "404 Page Error! Please choose a link"
 

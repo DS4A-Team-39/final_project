@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
 # dataset
-df_modelo1 = pd.read_csv('SELECT * FROM df_modelo')
+df_modelo1 = pd.read_sql('SELECT * FROM df_modelo')
 
 df_modelo1[["tp15_1_ocu", "tp19_ee_1", "tp19_acu_1", "tp19_alc_1", "tp19_gas_1", "tp19_recb1", "tp19_inte1", "tp51superi",
             "tp51postgr", "tp51_13_ed", "tp15_2_ocu", "tp19_ee_2", "tp19_acu_2", "tp19_alc_2", "tp19_gas_2", "tp19_recb2",

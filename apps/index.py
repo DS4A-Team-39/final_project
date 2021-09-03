@@ -8,7 +8,7 @@ from app import app
 from app import server
 
 # Connect to your app pages
-from analitics import vgames, prueba, pruebaJaz, education
+from analitics import vgames, prueba, pruebaJaz, education, survival
 
 
 app.layout = html.Div([
@@ -20,11 +20,17 @@ app.layout = html.Div([
                 html.Img(src = app.get_asset_url('home.png'), className = "Integrante__icono"),    
                 dcc.Link('Home', href='/', className= "Integrante__nombre")
                 ], className="Integrante"),
-            html.Div([dcc.Link('Security', href='/apps/prueba', className= "Integrante__nombre")], className="Integrante"),
-            html.Div([dcc.Link('Care', href='/apps/pruebajaz',  className= "Integrante__nombre")], className="Integrante"),
+            html.Div([dcc.Link('Care', href='/care',  className= "Integrante__nombre")], className="Integrante"),
             html.Div([dcc.Link('Development', href='/development',  className= "Integrante__nombre")], className="Integrante"),
-            html.Div([dcc.Link('Survival', href='/apps/pruebajaz',  className= "Integrante__nombre")], className="Integrante"),
-            html.Div([dcc.Link('About us', href='/apps/vgames',  className= "Integrante__nombre")], className="Integrante"),
+            html.Div([dcc.Link('Survival', href='/survival',  className= "Integrante__nombre")], className="Integrante"),
+            html.Div([dcc.Link('Model and tools', href='/models',  className= "Integrante__nombre")], className="Integrante"),
+            
+            html.Div([
+                html.Img(src = app.get_asset_url('team.svg'), className = "Integrante__icono"),  
+                dcc.Link('About us', href='/about',  className= "Integrante__nombre")
+                ], className="Integrante"),
+
+            html.Div([dcc.Link('Prueba', href='/prueba',  className= "Integrante__nombre")], className="Integrante"),
             
             
             ], className="Autores__integrante"),
@@ -43,14 +49,18 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/apps/vgames':
-        return vgames.layout
-    if pathname == '/apps/prueba':
-        return prueba.layout  
-    if pathname == '/apps/pruebajaz'  :
-        return pruebaJaz.layout
+    if pathname == '/care':
+        return "En Proceso"
     if pathname == '/development':
         return education.layout
+    if pathname == '/survival':
+        return survival.layout  
+    if pathname == '/models'  :
+        return "En proceso"
+    if pathname == '/about'  :
+        return "En proceso"
+    if pathname == '/prueba'  :
+        return pruebaJaz.layout
     else:
         return "404 Page Error! Please choose a link"
 

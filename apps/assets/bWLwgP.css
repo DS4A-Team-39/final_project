@@ -52,7 +52,7 @@
 .Autores {
   height: 100vh;
   width: 12.5%;
-  background-color: #6797be;
+  background-color: #00a89a;
   border-right: 1px solid #000;
   position: fixed;
 }
@@ -171,7 +171,7 @@
   .two.columns                    { width: 13.3333333333%; }
   .three.columns                  { width: 22%;            }
   .four.columns                   { width: 30.6666666667%; }
-  .five.columns                   { width: 33%; }
+  .five.columns                   { width: 45%; }
   .six.columns                    { width: 48%;            }
   .seven.columns                  { width: 56.6666666667%; }
   .eight.columns                  { width: 65.3333333333%; }

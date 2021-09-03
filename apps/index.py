@@ -19,7 +19,7 @@ app.layout = html.Div([
             dcc.Location(id='url', refresh=False),
             html.Div([                           
                 html.Img(src = app.get_asset_url('home.png'), className = "Integrante__icono"),    
-                dcc.Link('Home', href='/home', className= "Integrante__nombre")
+                dcc.Link('Home', href='/', className= "Integrante__nombre")
                 ], className="Integrante"),
             html.Div([
                 html.Img(src = app.get_asset_url('crecimiento.svg'), className = "Integrante__icono"),
@@ -40,14 +40,11 @@ app.layout = html.Div([
             html.Div([
                 html.Img(src = app.get_asset_url('team.svg'), className = "Integrante__icono"),  
                 dcc.Link('About us', href='/about',  className= "Integrante__nombre")
-                ], className="Integrante"),
-
-            html.Div([dcc.Link('Prueba', href='/prueba',  className= "Integrante__nombre")], className="Integrante"),            
-            
+                ], className="Integrante"),            
             ], className="Autores__integrante"),
         ], className="Autores"),
     html.Div([
-        html.H1("Observatorio Digital Municipal de Bucaramanga", className="Titulo"),
+        html.H1("VULNEX - Vulnerability Exploration", className="Titulo"),
         html.Div([
             html.Div(className="Dashboard__Mapa", id='page-content', children=[]),
             # html.Div([], className="Dashboard__Datos"),
@@ -60,11 +57,9 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/protection':
-        return "En Proceso"
     if pathname == '/development':
         return education.layout
-    if pathname == '/home':
+    if pathname == '/':
         return home.layout
     if pathname == '/survival':
         return survival.layout  

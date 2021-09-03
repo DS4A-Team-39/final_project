@@ -36,12 +36,13 @@ layout = html.Div([
     ], className='row'),
 
     dcc.Graph(id='my-bar-modelo', figure={}),
+    dcc.Graph(id='my-bar-modelo-3d', figure={}),
 
     html.P("K means clustering of the vulnerability current situation in the main zones of Bucaramanga, it includes health indicators, education, social programmes inclusion at ICBF, malnutrition, access to public services and internet. Features are aggregated by principal components method.", className='Parrafo__model')
 ])
 
 
-def cluster(n_clusters, X):
+def cluster(n_clusters, components):
     kmeans = KMeans(n_clusters=n_clusters)
     kmeans.fit(pd.DataFrame(components))
     Z = kmeans.predict(pd.DataFrame(components))
@@ -50,6 +51,7 @@ def cluster(n_clusters, X):
 
 @app.callback(
     Output(component_id='my-bar-modelo', component_property='figure'),
+    Output(component_id='my-bar-modelo-3d', component_property='figure'),
     [
         Input(component_id='my-slider', component_property='value')
     ]
@@ -106,4 +108,4 @@ def graph_clusters(n_clusters):
     )
 
     conn.close()
-    return fig
+    return fig, fig2

@@ -40,7 +40,7 @@ layout = html.Div([
 ])
 
 
-def cluster(n_clusters, X):
+def cluster(n_clusters, components):
     kmeans = KMeans(n_clusters=n_clusters)
     kmeans.fit(pd.DataFrame(components))
     Z = kmeans.predict(pd.DataFrame(components))

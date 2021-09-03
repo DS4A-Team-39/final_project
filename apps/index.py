@@ -19,7 +19,7 @@ app.layout = html.Div([
             dcc.Location(id='url', refresh=False),
             html.Div([                           
                 html.Img(src = app.get_asset_url('home.png'), className = "Integrante__icono"),    
-                dcc.Link('Home', href='/home', className= "Integrante__nombre")
+                dcc.Link('Home', href='/', className= "Integrante__nombre")
                 ], className="Integrante"),
             html.Div([
                 html.Img(src = app.get_asset_url('crecimiento.svg'), className = "Integrante__icono"),
@@ -41,8 +41,6 @@ app.layout = html.Div([
                 html.Img(src = app.get_asset_url('team.svg'), className = "Integrante__icono"),  
                 dcc.Link('About us', href='/about',  className= "Integrante__nombre")
                 ], className="Integrante"),
-
-            html.Div([dcc.Link('Prueba', href='/prueba',  className= "Integrante__nombre")], className="Integrante"),            
             
             ], className="Autores__integrante"),
         ], className="Autores"),
@@ -62,7 +60,7 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/development':
         return education.layout
-    if pathname == '/home':
+    if pathname == '/':
         return home.layout
     if pathname == '/survival':
         return survival.layout  
@@ -77,4 +75,4 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(host="0.0.0.0")
+    app.run_server(host="0.0.0.0", debug = True)

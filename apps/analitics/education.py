@@ -46,41 +46,36 @@ nivel = {
 ano = ['2018','2019','2020']
 
 layout = html.Div([
-    html.H1('Education', style={"textAlign": "center"}),
+    html.H1('Development', style={"textAlign": "center"}),
 
     html.Div([
-        html.H4('Titulo seleccion'),
         html.Div(dcc.Dropdown(
             id='education-tasas-dropdown', value='aprobacion', clearable=False,
             options=[{'label': key, 'value': value}
                 for key, value in list_education_features.items()]
         ), className='six columns'),
     ], className='row'),
-
     dcc.Graph(id='bar-tasas', figure={}),
 
+    html.Div([
     html.Div([
         html.Div(dcc.Dropdown(
             id='education-matricula-observacion-dropdown', value='edad', clearable=False,
             options=[{'label': key, 'value': value} for key, value in observacion.items()]
-        ), className='six columns'),
+        ), className='three columns'),
 
         html.Div(dcc.Dropdown(
             id='education-matricula-nivel-dropdown', value='media', clearable=False,
             options=[{'label': key, 'value': value} for key, value in nivel.items()]
-        ), className='six columns'),
+        ), className='three columns'),
 
         html.Div(dcc.Dropdown(
             id='education-matricula-ano-dropdown', value='2018', clearable=False,
             options=[{'label':x, 'value': x} for x in ano]
-        ), className='six columns'),
+        ), className='three columns'),
     ], className='row'),
-
     dcc.Graph(id='bar-matricula', figure={}),
-
-
-    
-
+    ])
 ])
 
 conn = startConn()
@@ -123,16 +118,8 @@ def plot_tasas_educativas(feature_educativa):
                 y=educacion[feature_educativa+'_media'])
     ])
     # Change the bar mode
-    fig = fig.update_layout(
-        barmode='group', 
-        yaxis_title=feature_educativa, 
-        title_text='Tasas de variables educativas',
-        title_x = 0.5,
-        plot_bgcolor='azure',
-        yaxis = dict(tickfont = dict(size=14)),
-        xaxis = dict(tickfont = dict(size=14)),
-        font=dict(size=16)
-        )
+    fig =fig.update_layout(barmode='group', yaxis_title=feature_educativa+' porcentual %', title_text='Tasas de variables educativas',
+                    title_x = 0.5,plot_bgcolor='azure' ,yaxis = dict(tickfont = dict(size=14)),xaxis = dict(tickfont = dict(size=14)),font=dict(size=16))
     
     return fig
 
@@ -174,7 +161,7 @@ def plot_matricula(nivel, observacion, ano):
             go.Bar(name='2018', x=x_2018, y=y_2018)
         ])
         # Change the bar mode
-        fig = fig.update_layout(barmode='group', plot_bgcolor='azure', title_text='Número de matriculados',
+        fig = fig.update_layout(barmode='group', plot_bgcolor='azure', title_text='Número de matriculados', yaxis_title='Frecuencia',
                             title_x = 0.5, yaxis = dict(tickfont = dict(size=14)),xaxis = dict(tickfont = dict(size=14)),font=dict(size=16))
         return fig 
     elif ano == '2019': 
@@ -182,7 +169,7 @@ def plot_matricula(nivel, observacion, ano):
             go.Bar(name='2019', x=x_2019, y=y_2019)
         ])
         # Change the bar mode
-        fig = fig.update_layout(barmode='group', title_text='Número de matriculados' 
+        fig = fig.update_layout(barmode='group', title_text='Número de matriculados', yaxis_title='Frecuencia'
                             ,title_x = 0.5 ,plot_bgcolor='azure',yaxis = dict(tickfont = dict(size=14)),xaxis=dict(tickfont = dict(size=14)), font=dict(size=16))
         return fig
     elif ano == '2020': 
@@ -190,6 +177,6 @@ def plot_matricula(nivel, observacion, ano):
             go.Bar(name='2020', x=x_2020, y=y_2020)
         ])
         # Change the bar mode
-        fig = fig.update_layout(barmode='group', title_text='Número de matriculados', 
+        fig = fig.update_layout(barmode='group', title_text='Número de matriculados', yaxis_title='Frecuencia',
                             title_x = 0.5,yaxis = dict(tickfont = dict(size=14)),xaxis=dict(tickfont = dict(size=14)),font=dict(size=16))
         return fig

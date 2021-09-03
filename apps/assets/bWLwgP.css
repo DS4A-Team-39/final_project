@@ -77,7 +77,7 @@
 .Dashboard__Mapa
 {
     width: 100%;
-    background-color: #E5E5E5;
+    background-color: #fff;
     border-top: 1px solid #000;
 
 }
@@ -115,7 +115,7 @@
 {
     display: inline;
     margin-left: 10px;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     color: black;
     text-decoration: none;
 }
@@ -161,7 +161,7 @@
     width: 80%; }
   .column,
   .columns {
-    margin-left: 4%; }
+    margin-left: 1%; }
   .column:first-child,
   .columns:first-child {
     margin-left: 0; }

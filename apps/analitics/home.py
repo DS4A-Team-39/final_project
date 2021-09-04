@@ -43,53 +43,55 @@ layout = html.Div([
     <div class="page-section py-3 mt-md-n5 custom-index">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-4 py-3 py-md-0">
-            <div class="card-service wow fadeInUp">
-              <div class="circle-shape bg-secondary text-white">
-                <span>SV</span>
+          <div class="col-md-4">
+            <div class="wow fadeInUp">
+              <div style="background-color: #4E5AFE !important;
+              border-radius: 5px;
+              text-align: center;
+              font-size: large;">
+                <span style="color:white" >SURVIVAL</span>
+                <UL style="background-color: white;font-size: 15px;text-align: left;">
+                  <li>Malnutrition</li>
+                  <li>Social insurance</li>
+                  <li>Mortality rate</li>
+                  <li>Health Services</li>
+                </UL>
               </div>
-              <p><span>SURVIVAL</span>
-              <UL style="background-color: white;font-size: 15px;">
-                <li>Malnutrition</li>
-                <li>Social insurance</li>
-                <li>Mortality rate</li>
-                <li>Health Services</li>
-              </UL>
-              
-              </p>
             </div>
           </div>
-          <div class="col-md-4 py-3 py-md-0">
-            <div class="card-service wow fadeInUp">
-              <div class="circle-shape bg-primary text-white">
-                <span>PT</span>
-              </div>
-              <p><span>PROTECTION</span>
-                <UL style="background-color: white;font-size: 15px;">
+          <div class="col-md-4">
+            <div class="wow fadeInUp">
+              <div style="background-color: #00D9A5 !important;
+              border-radius: 5px;
+              text-align: center;
+              font-size: large;">
+                <span style="color:white" >PROTECTION</span>
+                <UL style="background-color: white;font-size: 15px;text-align: left;">
                   <li>Child labour</li>
                   <li>Victim of armed conflict</li>
                   <li>Victim of sexual crimes</li>
                   <li>Restoring rights</li>
                   <li>Victims of psychoactive substances</li>
                 </UL>
-              </p>
+              </div>
             </div>
           </div>
-          <div class="col-md-4 py-3 py-md-0">
-            <div class="card-service wow fadeInUp">
-              <div class="circle-shape bg-accent text-white">
-                <span>DV</span>
-              </div>
-              <p><span>DEVELOPMENT</span>
-                <UL style="background-color: white;font-size: 15px;">
+          <div class="col-md-4">
+            <div class="wow fadeInUp">
+              <div style="background-color: #ff7701 !important;
+              border-radius: 5px;
+              text-align: center;
+              font-size: large;">
+                <span style="color:white" >DEVELOPMENT</span>
+                <UL style="background-color: white;font-size: 15px;text-align: left;">
                   <li>Education</li>
                   <li>ICBF attention</li>
-                </UL></p>
+                </UL>
+              </div>
             </div>
           </div>
-        </div>
       </div>
-    </div> <!-- .page-section -->
+    </div>   <!-- .page-section -->
 
     <div class="page-section pb-0">
       <div class="container">

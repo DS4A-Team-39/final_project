@@ -50,7 +50,7 @@ layout = html.Div([
                 <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-3">Angye Katherine Malagon </h3>
                 <p class="u-align-center u-text u-text-palette-1-base u-text-4">Systems engineer</p>
                 <div class="u-social-icons u-spacing-10 u-social-icons-1">
-                  <a class="u-social-url" target="_blank" href="#"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1" style="margin: 14px auto 0; font-size: 200%; color: black">&#9993;</span> 
+                  <a class="u-social-url" target="_blank" href="mailto:angyemala@gmail.com"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1" style="margin: 14px auto 0; font-size: 200%; color: black">&#9993;</span> 
                   </a>
                   <a class="u-social-url" target="_blank" href="https://www.linkedin.com/in/angyemalagon-b2700673/"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-4"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-78e1"></use></svg><svg x="0px" y="0px" viewBox="0 0 112 112" id="svg-78e1" class="u-svg-content"><path d="M33.8,96.8H14.5v-58h19.3V96.8z M24.1,30.9L24.1,30.9c-6.6,0-10.8-4.5-10.8-10.1c0-5.8,4.3-10.1,10.9-10.1 S34.9,15,35.1,20.8C35.1,26.4,30.8,30.9,24.1,30.9z M103.3,96.8H84.1v-31c0-7.8-2.7-13.1-9.8-13.1c-5.3,0-8.5,3.6-9.9,7.1 c-0.6,1.3-0.6,3-0.6,4.8V97H44.5c0,0,0.3-52.6,0-58h19.3v8.2c2.6-3.9,7.2-9.6,17.4-9.6c12.7,0,22.2,8.4,22.2,26.1V96.8z"></path></svg></span>
                   </a>
@@ -62,7 +62,7 @@ layout = html.Div([
                 <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-3">Aurelio Esquivia Lopez </h3>
                 <p class="u-align-center u-text u-text-palette-1-base u-text-4">Chemical engineer</p>
                 <div class="u-social-icons u-spacing-10 u-social-icons-1">
-                  <a class="u-social-url" target="_blank" href="#"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1" style="margin: 14px auto 0; font-size: 200%; color: black">&#9993;</span> 
+                  <a class="u-social-url" target="_blank" href="mailto:aesquivial@unicartagena.edu.co"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1" style="margin: 14px auto 0; font-size: 200%; color: black">&#9993;</span> 
                   </a>
                   <a class="u-social-url" target="_blank" href="https://www.linkedin.com/in/aurelio-esquivia-lopez-75964ba8/"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-4"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-78e1"></use></svg><svg x="0px" y="0px" viewBox="0 0 112 112" id="svg-78e1" class="u-svg-content"><path d="M33.8,96.8H14.5v-58h19.3V96.8z M24.1,30.9L24.1,30.9c-6.6,0-10.8-4.5-10.8-10.1c0-5.8,4.3-10.1,10.9-10.1 S34.9,15,35.1,20.8C35.1,26.4,30.8,30.9,24.1,30.9z M103.3,96.8H84.1v-31c0-7.8-2.7-13.1-9.8-13.1c-5.3,0-8.5,3.6-9.9,7.1 c-0.6,1.3-0.6,3-0.6,4.8V97H44.5c0,0,0.3-52.6,0-58h19.3v8.2c2.6-3.9,7.2-9.6,17.4-9.6c12.7,0,22.2,8.4,22.2,26.1V96.8z"></path></svg></span>
                   </a>
@@ -112,7 +112,7 @@ layout = html.Div([
                 <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-9">Juan Jose Gomez</h3>
                 <p class="u-align-center u-text u-text-palette-1-base u-text-10">Physicist</p>
                 <div class="u-social-icons u-spacing-10 u-social-icons-1">
-                  <a class="u-social-url" target="_blank" href="#"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1" style="margin: 14px auto 0; font-size: 200%; color: black">&#9993;</span> 
+                  <a class="u-social-url" target="_blank" href="mailto:jujgomezro@unal.edu.co"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1" style="margin: 14px auto 0; font-size: 200%; color: black">&#9993;</span> 
                   </a>  
                   <a class="u-social-url" target="_blank" href="https://www.linkedin.com/in/jujgomezro25/"><span class="u-icon u-icon-circle u-social-icon u-social-linkedin u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-78e1"></use></svg><svg x="0px" y="0px" viewBox="0 0 112 112" id="svg-78e1" class="u-svg-content"><path d="M33.8,96.8H14.5v-58h19.3V96.8z M24.1,30.9L24.1,30.9c-6.6,0-10.8-4.5-10.8-10.1c0-5.8,4.3-10.1,10.9-10.1 S34.9,15,35.1,20.8C35.1,26.4,30.8,30.9,24.1,30.9z M103.3,96.8H84.1v-31c0-7.8-2.7-13.1-9.8-13.1c-5.3,0-8.5,3.6-9.9,7.1 c-0.6,1.3-0.6,3-0.6,4.8V97H44.5c0,0,0.3-52.6,0-58h19.3v8.2c2.6-3.9,7.2-9.6,17.4-9.6c12.7,0,22.2,8.4,22.2,26.1V96.8z"></path></svg></span>
                   </a>

@@ -19,13 +19,13 @@ from app import app
 from dbConnection import startConn
 
 
-group_age={'Primera Infancia': 'primera infancia',
-                'Infancia': 'infancia',
-                'Adolescencia': 'adolescencia'
+group_age={'Early Childhood': 'primera infancia',
+                'Childhood': 'infancia',
+                'Adolescence': 'adolescencia'
                 }
 
-year={'Año 2020': 2020,
-        'Año 2019':2019}
+year={'2020 year': 2020,
+        '2019 year':2019}
 
 layout = html.Div([
     html.H1('Survival', style={"textAlign": "center"}),

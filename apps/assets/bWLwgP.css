@@ -499,6 +499,10 @@ hr {
   content: "";
   display: table;
   clear: both; }
+.row 
+{
+  margin-left: 20px;
+}
 
 
 /* Media Queries

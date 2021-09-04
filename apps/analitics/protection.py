@@ -190,85 +190,7 @@ def graph_two():
     )
     return fig
 
-def display_value():
 
-    conn = startConn()
-
-    salud = pd.read_sql('SELECT * FROM salud_bucaramanga', conn)
-    poblacion = pd.read_sql('SELECT * FROM poblacion', conn)
-    df_sisben = pd.read_sql('SELECT * FROM sisben', conn)
-    poblacion["primera_infancia_2020"] = poblacion["primera_infancia_2021"].astype(int)/1.13
-    poblacion["primera_infancia_2019"] = poblacion["primera_infancia_2020"].astype(int)/1.13
-    poblacion["primera_infancia_2018"] = poblacion["primera_infancia_2019"].astype(int)/1.13
-
-    poblacion["infancia_2020"] = poblacion["infancia_2021"].astype(int)/1.13
-    poblacion["infancia_2019"] = poblacion["infancia_2020"].astype(int)/1.13
-    poblacion["infancia_2018"] = poblacion["infancia_2019"].astype(int)/1.13
-
-    poblacion["adolencencia_2020"] = poblacion["adolencencia_2021"].astype(int)/1.13
-    poblacion["adolencencia_2019"] = poblacion["adolencencia_2020"].astype(int)/1.13
-    poblacion["adolencencia_2018"] = poblacion["adolencencia_2019"].astype(int)/1.13
-
-    pob2018_primera_inf = poblacion["primera_infancia_2018"].astype(int).sum()
-    pob2019_primera_inf = poblacion["primera_infancia_2019"].astype(int).sum()
-    pob2020_primera_inf = poblacion["primera_infancia_2020"].astype(int).sum()
-    pob2021_primera_inf = poblacion["primera_infancia_2021"].astype(int).sum()
-
-    pob2018_inf = poblacion["infancia_2018"].astype(int).sum()
-    pob2019_inf = poblacion["infancia_2019"].astype(int).sum()
-    pob2020_inf = poblacion["infancia_2020"].astype(int).sum()
-    pob2021_inf = poblacion["infancia_2021"].astype(int).sum()
-
-    pob2018_adol = poblacion["adolencencia_2018"].astype(int).sum()
-    pob2019_adol = poblacion["adolencencia_2019"].astype(int).sum()
-    pob2020_adol = poblacion["adolencencia_2020"].astype(int).sum()
-    pob2021_adol = poblacion["adolencencia_2021"].astype(int).sum()
-
-    df_icbf_pard = pd.read_sql('SELECT * FROM pard_icbf', conn)
-    df_icbf_pard1 = df_icbf_pard[df_icbf_pard["rango_edad"] == "de 0 a 5 años"]
-    df_icbf_pard2 = df_icbf_pard[df_icbf_pard["rango_edad"] == "de 6 a 11 años"]
-    df_icbf_pard3 = df_icbf_pard[df_icbf_pard["rango_edad"] == "de 12 a 17 años"]
-    lista_tasa_restablecimiento_derechos = list(map(operator.truediv, df_icbf_pard1[["año", "mes"]].groupby(["año"]).count()["mes"].tolist(),
-                                                [pob2018_primera_inf, pob2019_primera_inf, pob2020_primera_inf, pob2021_primera_inf])) + list(map(operator.truediv,
-                                                                                                                                                  df_icbf_pard2[["año", "mes"]].groupby(["año"]).count()["mes"].tolist(),
-                                                                                                                                                  [pob2018_inf, pob2019_inf, pob2020_inf, pob2021_inf])) + list(map(operator.truediv,
-                                                                                                                                                                                                                    df_icbf_pard3[["año", "mes"]].groupby(["año"]).count()["mes"].tolist(),
-                                                                                                                                                                                                                    [pob2018_adol, pob2019_adol, pob2020_adol, pob2021_adol]))
-
-    lista_ano_restablecimiento_derechos =  df_icbf_pard1[["año", "mes"]].groupby(["año"]).count().index.tolist()*3
-    lista_edad_restablecimiento_derechos = np.array(["primera infancia", "infancia", "adolescencia"])
-    lista_edad_restablecimiento_derechos = np.repeat(lista_edad_restablecimiento_derechos, 4, axis=0)
-
-    tasa_restablecimiento_derechos_por_ano = pd.DataFrame({"grupo etareo": lista_edad_restablecimiento_derechos, "año": lista_ano_restablecimiento_derechos,
-                                                        "tasa": [round(num,5) for num in lista_tasa_restablecimiento_derechos]})
-
-    df_sisben["icbf_ninos_beneficiarios"] = df_sisben["icbf_ninos_beneficiarios"].astype("int")
-    beneficiarios_icbf = df_sisben.groupby(["num_comuna", "nom_comuna"])[["icbf_ninos_beneficiarios"]].sum()
-    beneficiarios_icbf = beneficiarios_icbf.reset_index()
-    beneficiarios_icbf["numero_comuna"] = beneficiarios_icbf["num_comuna"].astype("int")
-    beneficiarios_icbf["prop_niños_benef_icbf"] = beneficiarios_icbf["icbf_ninos_beneficiarios"].astype("int") / pob2018_primera_inf
-    path='datasets/ComunasWGS84.geojson'
-    geo_str = json.dumps(json.load(open(path, 'r'))) # map data
-    nameb=json.loads(geo_str)
-    scale=np.linspace(beneficiarios_icbf["prop_niños_benef_icbf"].min(),beneficiarios_icbf["prop_niños_benef_icbf"].max(),10,dtype=float).tolist()
-
-    fig = px.choropleth_mapbox(beneficiarios_icbf, geojson=nameb,
-                           featureidkey = 'properties.NOMBRE',
-                           locations= "numero_comuna",
-                           color='prop_niños_benef_icbf',
-                           color_continuous_scale="rdylgn",
-                           range_color= (0, 0.014),
-                           mapbox_style="open-street-map",
-                           zoom=11.5, center = {"lat": 7.122413, "lon": -73.120446},
-                           opacity=0.5,
-                           labels='rop_niños_benef_icbf'
-                          )
-    fig = fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})   
-    conn.close()
-    return fig
- 
-def map_values(row, values_dict):
-        return values_dict[row]
 
 crimes = pd.read_sql('select * from tmp_ind_crimen',conn)
 crimes=crimes.rename(columns={'tasa':'rate'})
@@ -290,22 +212,11 @@ list_features = {
 trans_ind={'DELITOS_SEXUALES':'Sexual crimes','HOMICIDIOS':'Murder','MORTALIDAD':'Mortality','MORTALIDAD_ACC_TRANSITO':'Death in traffic accidents','VIOLENCIA':'Violence','VIOLENCIA_INTRAFAMILIAR' : 'Domestic Violence'}
 trans_age_group={'PRIMERA_INFANCIA':'early childhood','ADOLESCENCIA':'Adolescence','INFANCIA':'childhood','MENORES':'Minors'}
 
-layout = html.Div([
-    html.H1('Protection', style={"textAlign": "center","color":"#004883"}),
-    html.H2('Armed conflict, child labour, crimes and violence', style={"textAlign": "center"}),
-    html.Div(dcc.Dropdown(
-            id='features-dropdown', value='DELITOS_SEXUALES', clearable=False,
-            options=[{'label': key, 'value': value}
-                for key, value in list_features.items()]
-        ),style={"padding-left": "4%","padding-right": "4%"}),
-    dcc.Graph(id='bar-tasas-crimes', figure={}, style={"padding-left": "4%","padding-right": "4%"}),
-    dcc.Graph(id='bar-map-survival-one', figure=graph_one(), className = "five columns"),
-    dcc.Graph(id='bar-map-survival-two', figure=graph_two(), className = "five columns"),
-    dcc.Graph(id='my-bar-prueba', figure=display_value(), className = "five columns"),
-
-
-], style={"backgroundColor": "white","height":"100%"})
-
+list_edades={
+    'Early childhood':'primera_infancia',
+    'Chilhood':'infancia',
+    'Adolescence':'adolescencia'
+    }
 
 @app.callback(
     Output(component_id='bar-tasas-crimes', component_property='figure'),
@@ -325,3 +236,150 @@ def plot_tasas_crimes(feature):
      return fig
 
 
+
+conn = startConn()
+educacion = pd.read_sql('SELECT * FROM "estadisticas_educacion"',conn);
+matriculas = pd.read_sql('SELECT * FROM "matricula_educacion"',conn);
+matriculas_final = pd.read_sql('SELECT * FROM "matriculas_bucaramanga"',conn);
+estudiantes_2020 = pd.read_sql('SELECT * FROM "estudiantes_por_barrio_2020_anonimizado"', conn);
+poblacion_educacion = pd.read_sql('SELECT * FROM "poblacion"', conn);
+estudiantes_2020.numero_comuna = estudiantes_2020.numero_comuna.astype('int32')
+estudiantes_2020 = estudiantes_2020.drop(columns=['categoria','sede','codigo_dane_sede'])
+dictomu= {'la ciudadela':'La Ciudadela',
+          'provenza': 'Provenza',
+          'cabecera del llano':'Cabecera del llano',
+          'centro':'Centro',   
+          'garcia rovira':'García Rovira',
+          'la concordia': 'La Concordia',
+          'lagos del cacique' :'Lagos del Cacique',
+          'morrorico':'Morrorico',
+          'mutis' : 'Mutis',
+          'nororiental' : 'Nororiental',
+          'norte' :'Norte',
+          'occidental' :  'Occidental',
+          'oriental'  :'Oriental',
+          'la pedregosa'  : 'La Pedregosa',
+          'san francisco' :  'San Francisco',
+          'sur'  : 'Sur',
+          'suroccidente' :  'Sur Occidente',
+          'la provenza': 'Provenza',
+}
+
+dictoid= {'La Ciudadela':7,
+          'Provenza': 10,
+          'Cabecera del llano':12,
+          'Centro': 15,   
+          'García Rovira':5,
+          'La Concordia': 6,
+          'Lagos del Cacique': 16,
+          'Morrorico':14,
+          'Mutis': 17,
+          'Nororiental': 2,
+          'Norte': 1,
+          'Occidental': 4,
+          'Oriental':13,
+          'La Pedregosa': 9,
+          'San Francisco':3,
+          'Sur': 11,
+          'Sur Occidente': 8
+}
+
+estudiantes_2020["nombre_comuna"]=estudiantes_2020["nombre_comuna"].str.strip()
+estudiantes_2020=estudiantes_2020.replace({"nombre_comuna": dictomu})
+
+
+def age(born):
+    born = datetime.strptime(born, "%Y-%m-%d").date()
+    today = date.today()
+    return today.year - born.year - ((today.month, 
+                                      today.day) < (born.month, 
+                                                    born.day))
+estudiantes_2020['edad'] = estudiantes_2020['fecha_nacimiento'].apply(age)
+estudiantes_2020['variable']=np.nan
+for row in range(len(estudiantes_2020)):
+  if estudiantes_2020['edad'][row]<=5:
+    estudiantes_2020['variable'][row] = 'primera_infancia'
+  elif (estudiantes_2020['edad'][row]> 5 and estudiantes_2020['edad'][row]<=11):
+    estudiantes_2020['variable'][row] = 'infancia'
+  elif estudiantes_2020['edad'][row]>11 and estudiantes_2020['edad'][row]<=17:
+    estudiantes_2020['variable'][row] = 'adolescencia'
+poblacion_educacion.porcentaje = poblacion_educacion.porcentaje.astype('float64')
+poblacion_educacion.id = poblacion_educacion.id.astype('float64')
+poblacion_educacion.primera_infancia_2021 = poblacion_educacion.primera_infancia_2021.astype('float64')
+poblacion_educacion.infancia_2021 = poblacion_educacion.primera_infancia_2021.astype('float64')
+poblacion_educacion.adolencencia_2021 = poblacion_educacion.adolencencia_2021.astype('float64')
+poblacion_educacion = poblacion_educacion.drop(columns=['f1'])
+poblacion_educacion["primera_infancia_2020"] = poblacion_educacion["primera_infancia_2021"]/1.13
+poblacion_educacion["primera_infancia_2019"] = poblacion_educacion["primera_infancia_2020"]/1.13
+poblacion_educacion["primera_infancia_2018"] = poblacion_educacion["primera_infancia_2019"]/1.13
+
+poblacion_educacion["infancia_2020"] = poblacion_educacion["infancia_2021"]/1.13
+poblacion_educacion["infancia_2019"] = poblacion_educacion["infancia_2020"]/1.13
+poblacion_educacion["infancia_2018"] = poblacion_educacion["infancia_2019"]/1.13
+
+poblacion_educacion["adolencencia_2020"] = poblacion_educacion["adolencencia_2021"]/1.13
+poblacion_educacion["adolencencia_2019"] = poblacion_educacion["adolencencia_2020"]/1.13
+poblacion_educacion["adolencencia_2018"] = poblacion_educacion["adolencencia_2019"]/1.13
+
+estudiantes_comuna=estudiantes_2020.groupby(['numero_comuna','nombre_comuna','variable']).size().to_frame().reset_index().sort_values('variable', ascending=False).reset_index().drop(columns='index').rename(columns={0:'matriculados_2020'})
+estudiantes_comuna['id']=estudiantes_comuna['numero_comuna']
+
+matriculas = poblacion_educacion.merge(estudiantes_comuna, how='outer',on='id')
+matriculas = matriculas.drop(columns=['porcentaje','pob_2021','pob_2020','pob_2019','pob_2018','infancia_2021','primera_infancia_2021','adolencencia_2021','nombre_comuna','numero_comuna',
+                                      'primera_infancia_2019','primera_infancia_2018','infancia_2019','infancia_2018','adolencencia_2019','adolencencia_2018'])
+matriculas = matriculas.drop(labels=[51,52,53,54,55,56,57], axis=0)
+matriculas['%tasa_matriculas_2020']=np.nan
+
+for row in range(len(matriculas)):
+  if matriculas['variable'][row] == 'primera_infancia':
+    matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['primera_infancia_2020'][row]*100
+  elif matriculas['variable'][row] == 'infancia':
+    matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['infancia_2020'][row]*100
+  elif matriculas['variable'][row] == 'adolescencia':
+    matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['adolencencia_2020'][row]*100
+matriculas['id']=matriculas['id'].astype('int32')
+
+path='datasets/ComunasWGS84.geojson'
+
+@app.callback(
+    Output(component_id='bar-map-education', component_property='figure'),
+    [
+    Input(component_id='features-dropdown-age', component_property='value')
+    ]
+)
+def plot_matriculas(edades):  
+  fig = px.choropleth_mapbox(matriculas[matriculas['variable']==edades], geojson=path,
+                           featureidkey = 'properties.NOMBRE', # key the geo data
+                           locations= "id", # key the dataframe with geodata.
+                           color='%tasa_matriculas_2020',# columns to plot value
+                           color_continuous_scale="RdYlGn", # select colors to map
+                           range_color= (matriculas[matriculas['variable']==edades]['%tasa_matriculas_2020'].min(),matriculas[matriculas['variable']==edades]['%tasa_matriculas_2020'].max()),# scale
+                           mapbox_style="open-street-map", # backgoung
+                           zoom=11.5, center = {"lat": 7.122413, "lon": -73.120446}, # center of the map
+                           opacity=0.7, 
+                           labels='% de matriculados' # add values to map
+                          )
+  fig=fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+  return fig
+
+
+layout = html.Div([
+    html.H1('Protection', style={"textAlign": "center","color":"#004883"}),
+    html.H2('Armed conflict, child labour, crimes and violence', style={"textAlign": "center"}),
+    html.Div(dcc.Dropdown(
+            id='features-dropdown', value='DELITOS_SEXUALES', clearable=False,
+            options=[{'label': key, 'value': value}
+                for key, value in list_features.items()]
+        ),style={"padding-left": "4%","padding-right": "4%"}),
+    dcc.Graph(id='bar-tasas-crimes', figure={}, style={"padding-left": "4%","padding-right": "4%"}),
+    dcc.Graph(id='bar-map-survival-one', figure=graph_one(), className = "five columns"),
+    dcc.Graph(id='bar-map-survival-two', figure=graph_two(), className = "five columns"),
+    html.Div(dcc.Dropdown(
+            id='features-dropdown-age', value='primera_infancia', clearable=False,
+            options=[{'label': key, 'value': value}
+                for key, value in list_edades.items()]
+        ),style={"padding-left": "4%","padding-right": "4%"}),
+    dcc.Graph(id='bar-map-education', figure={}, className = "five columns"),
+
+
+], style={"backgroundColor": "white","height":"100%"})

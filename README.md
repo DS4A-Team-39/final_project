@@ -13,6 +13,8 @@ Based in Python 3.8 implementation
 - Flask
 - psycopg2
 - Numpy
+- Plotly
+- scikit-learn
 
 ## Integrations
 

@@ -19,7 +19,7 @@ Based in Python 3.8 implementation
  - PostgreSQL Database
 
 ## Architecture
-<img src="./apps/assets/img/architecture.png">
+<img src="https://github.com/DS4A-Team-39/final_project/blob/feature/esteban/apps/assets/img/architecture.png">
 
 ## Installation
 

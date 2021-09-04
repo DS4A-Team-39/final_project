@@ -40,12 +40,11 @@ app.layout = html.Div([
             html.Div([
                 html.Img(src = app.get_asset_url('team.svg'), className = "Integrante__icono"),  
                 dcc.Link('About us', href='/about',  className= "Integrante__nombre")
-                ], className="Integrante"),
-            
+                ], className="Integrante"),            
             ], className="Autores__integrante"),
         ], className="Autores"),
     html.Div([
-        html.H1("Observatorio Digital Municipal de Bucaramanga", className="Titulo"),
+        html.H1("VULNEX - Vulnerability Exploration", className="Titulo"),
         html.Div([
             html.Div(className="Dashboard__Mapa", id='page-content', children=[]),
             # html.Div([], className="Dashboard__Datos"),

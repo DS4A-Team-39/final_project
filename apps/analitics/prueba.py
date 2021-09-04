@@ -113,7 +113,7 @@ def display_value(grupo_chosen):
                            featureidkey = 'properties.NOMBRE',
                            locations= "numero_comuna",
                            color='prop_niños_benef_icbf',
-                           color_continuous_scale="viridis",
+                           color_continuous_scale="rdylgn",
                            range_color= (0, 0.014),
                            mapbox_style="open-street-map",
                            zoom=11.5, center = {"lat": 7.122413, "lon": -73.120446},

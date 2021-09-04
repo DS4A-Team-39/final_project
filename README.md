@@ -1,7 +1,7 @@
 # Vulnex (Vulnerability Exploration)
 ## _Bucaramanga mayoralty_
 
- ####[Public App](https://vulnex.dployme.com/).
+ [####Public App](https://vulnex.dployme.com/).
 
 The mayoralty needs to locate and quantify the number of children and teens vulnerables in the 17 neighborhoods and 3 rural main areas of Bucaramanga and their relationship. In this application we use different tools to visualize trend changes in vulnerability between 2018 and 2020 for the following age groups: 
  - Early Childhood (0 to 5 years old)

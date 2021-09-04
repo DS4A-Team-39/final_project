@@ -261,7 +261,5 @@ layout = html.Div([
     ], className='row'),
     dcc.Graph(id='bar-matricula', figure={}),
     ]),
-
     dcc.Graph(id='my-bar-prueba', figure=display_value(), className = "five columns"),
-
 ])

@@ -32,7 +32,7 @@ layout = html.Div([
                 5: '5 clusters',
                 7: '7 clusters',
             }
-        ), className='nine columns'),
+        ), className='nine columns', style={"padding-left": "4%","padding-right": "4%"}),
     ], className='row'),
 
     dcc.Graph(id='my-bar-modelo', figure={}),

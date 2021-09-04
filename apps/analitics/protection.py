@@ -238,109 +238,7 @@ def plot_tasas_crimes(feature):
 
 
 
-conn = startConn()
-educacion = pd.read_sql('SELECT * FROM "estadisticas_educacion"',conn);
-matriculas = pd.read_sql('SELECT * FROM "matricula_educacion"',conn);
-matriculas_final = pd.read_sql('SELECT * FROM "matriculas_bucaramanga"',conn);
-estudiantes_2020 = pd.read_sql('SELECT * FROM "estudiantes_por_barrio_2020_anonimizado"', conn);
-poblacion_educacion = pd.read_sql('SELECT * FROM "poblacion"', conn);
-estudiantes_2020.numero_comuna = estudiantes_2020.numero_comuna.astype('int32')
-estudiantes_2020 = estudiantes_2020.drop(columns=['categoria','sede','codigo_dane_sede'])
-dictomu= {'la ciudadela':'La Ciudadela',
-          'provenza': 'Provenza',
-          'cabecera del llano':'Cabecera del llano',
-          'centro':'Centro',   
-          'garcia rovira':'García Rovira',
-          'la concordia': 'La Concordia',
-          'lagos del cacique' :'Lagos del Cacique',
-          'morrorico':'Morrorico',
-          'mutis' : 'Mutis',
-          'nororiental' : 'Nororiental',
-          'norte' :'Norte',
-          'occidental' :  'Occidental',
-          'oriental'  :'Oriental',
-          'la pedregosa'  : 'La Pedregosa',
-          'san francisco' :  'San Francisco',
-          'sur'  : 'Sur',
-          'suroccidente' :  'Sur Occidente',
-          'la provenza': 'Provenza',
-}
 
-dictoid= {'La Ciudadela':7,
-          'Provenza': 10,
-          'Cabecera del llano':12,
-          'Centro': 15,   
-          'García Rovira':5,
-          'La Concordia': 6,
-          'Lagos del Cacique': 16,
-          'Morrorico':14,
-          'Mutis': 17,
-          'Nororiental': 2,
-          'Norte': 1,
-          'Occidental': 4,
-          'Oriental':13,
-          'La Pedregosa': 9,
-          'San Francisco':3,
-          'Sur': 11,
-          'Sur Occidente': 8
-}
-
-estudiantes_2020["nombre_comuna"]=estudiantes_2020["nombre_comuna"].str.strip()
-estudiantes_2020=estudiantes_2020.replace({"nombre_comuna": dictomu})
-
-
-def age(born):
-    born = datetime.strptime(born, "%Y-%m-%d").date()
-    today = date.today()
-    return today.year - born.year - ((today.month, 
-                                      today.day) < (born.month, 
-                                                    born.day))
-estudiantes_2020['edad'] = estudiantes_2020['fecha_nacimiento'].apply(age)
-estudiantes_2020['variable']=np.nan
-for row in range(len(estudiantes_2020)):
-  if estudiantes_2020['edad'][row]<=5:
-    estudiantes_2020['variable'][row] = 'primera_infancia'
-  elif (estudiantes_2020['edad'][row]> 5 and estudiantes_2020['edad'][row]<=11):
-    estudiantes_2020['variable'][row] = 'infancia'
-  elif estudiantes_2020['edad'][row]>11 and estudiantes_2020['edad'][row]<=17:
-    estudiantes_2020['variable'][row] = 'adolescencia'
-poblacion_educacion.porcentaje = poblacion_educacion.porcentaje.astype('float64')
-poblacion_educacion.id = poblacion_educacion.id.astype('float64')
-poblacion_educacion.primera_infancia_2021 = poblacion_educacion.primera_infancia_2021.astype('float64')
-poblacion_educacion.infancia_2021 = poblacion_educacion.primera_infancia_2021.astype('float64')
-poblacion_educacion.adolencencia_2021 = poblacion_educacion.adolencencia_2021.astype('float64')
-poblacion_educacion = poblacion_educacion.drop(columns=['f1'])
-poblacion_educacion["primera_infancia_2020"] = poblacion_educacion["primera_infancia_2021"]/1.13
-poblacion_educacion["primera_infancia_2019"] = poblacion_educacion["primera_infancia_2020"]/1.13
-poblacion_educacion["primera_infancia_2018"] = poblacion_educacion["primera_infancia_2019"]/1.13
-
-poblacion_educacion["infancia_2020"] = poblacion_educacion["infancia_2021"]/1.13
-poblacion_educacion["infancia_2019"] = poblacion_educacion["infancia_2020"]/1.13
-poblacion_educacion["infancia_2018"] = poblacion_educacion["infancia_2019"]/1.13
-
-poblacion_educacion["adolencencia_2020"] = poblacion_educacion["adolencencia_2021"]/1.13
-poblacion_educacion["adolencencia_2019"] = poblacion_educacion["adolencencia_2020"]/1.13
-poblacion_educacion["adolencencia_2018"] = poblacion_educacion["adolencencia_2019"]/1.13
-
-estudiantes_comuna=estudiantes_2020.groupby(['numero_comuna','nombre_comuna','variable']).size().to_frame().reset_index().sort_values('variable', ascending=False).reset_index().drop(columns='index').rename(columns={0:'matriculados_2020'})
-estudiantes_comuna['id']=estudiantes_comuna['numero_comuna']
-
-matriculas = poblacion_educacion.merge(estudiantes_comuna, how='outer',on='id')
-matriculas = matriculas.drop(columns=['porcentaje','pob_2021','pob_2020','pob_2019','pob_2018','infancia_2021','primera_infancia_2021','adolencencia_2021','nombre_comuna','numero_comuna',
-                                      'primera_infancia_2019','primera_infancia_2018','infancia_2019','infancia_2018','adolencencia_2019','adolencencia_2018'])
-matriculas = matriculas.drop(labels=[51,52,53,54,55,56,57], axis=0)
-matriculas['%tasa_matriculas_2020']=np.nan
-
-for row in range(len(matriculas)):
-  if matriculas['variable'][row] == 'primera_infancia':
-    matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['primera_infancia_2020'][row]*100
-  elif matriculas['variable'][row] == 'infancia':
-    matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['infancia_2020'][row]*100
-  elif matriculas['variable'][row] == 'adolescencia':
-    matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['adolencencia_2020'][row]*100
-matriculas['id']=matriculas['id'].astype('int32')
-
-path='datasets/ComunasWGS84.geojson'
 
 @app.callback(
     Output(component_id='bar-map-education', component_property='figure'),
@@ -349,6 +247,109 @@ path='datasets/ComunasWGS84.geojson'
     ]
 )
 def plot_matriculas(edades):  
+  conn = startConn()
+  educacion = pd.read_sql('SELECT * FROM "estadisticas_educacion"',conn);
+  matriculas = pd.read_sql('SELECT * FROM "matricula_educacion"',conn);
+  matriculas_final = pd.read_sql('SELECT * FROM "matriculas_bucaramanga"',conn);
+  estudiantes_2020 = pd.read_sql('SELECT * FROM "estudiantes_por_barrio_2020_anonimizado"', conn);
+  poblacion_educacion = pd.read_sql('SELECT * FROM "poblacion"', conn);
+  estudiantes_2020.numero_comuna = estudiantes_2020.numero_comuna.astype('int32')
+  estudiantes_2020 = estudiantes_2020.drop(columns=['categoria','sede','codigo_dane_sede'])
+  dictomu= {'la ciudadela':'La Ciudadela',
+            'provenza': 'Provenza',
+            'cabecera del llano':'Cabecera del llano',
+            'centro':'Centro',   
+            'garcia rovira':'García Rovira',
+            'la concordia': 'La Concordia',
+            'lagos del cacique' :'Lagos del Cacique',
+            'morrorico':'Morrorico',
+            'mutis' : 'Mutis',
+            'nororiental' : 'Nororiental',
+            'norte' :'Norte',
+            'occidental' :  'Occidental',
+            'oriental'  :'Oriental',
+            'la pedregosa'  : 'La Pedregosa',
+            'san francisco' :  'San Francisco',
+            'sur'  : 'Sur',
+            'suroccidente' :  'Sur Occidente',
+            'la provenza': 'Provenza',
+  }
+
+  dictoid= {'La Ciudadela':7,
+            'Provenza': 10,
+            'Cabecera del llano':12,
+            'Centro': 15,   
+            'García Rovira':5,
+            'La Concordia': 6,
+            'Lagos del Cacique': 16,
+            'Morrorico':14,
+            'Mutis': 17,
+            'Nororiental': 2,
+            'Norte': 1,
+            'Occidental': 4,
+            'Oriental':13,
+            'La Pedregosa': 9,
+            'San Francisco':3,
+            'Sur': 11,
+            'Sur Occidente': 8
+  }
+
+  estudiantes_2020["nombre_comuna"]=estudiantes_2020["nombre_comuna"].str.strip()
+  estudiantes_2020=estudiantes_2020.replace({"nombre_comuna": dictomu})
+
+
+  def age(born):
+      born = datetime.strptime(born, "%Y-%m-%d").date()
+      today = date.today()
+      return today.year - born.year - ((today.month, 
+                                        today.day) < (born.month, 
+                                                      born.day))
+  estudiantes_2020['edad'] = estudiantes_2020['fecha_nacimiento'].apply(age)
+  estudiantes_2020['variable']=np.nan
+  for row in range(len(estudiantes_2020)):
+    if estudiantes_2020['edad'][row]<=5:
+      estudiantes_2020['variable'][row] = 'primera_infancia'
+    elif (estudiantes_2020['edad'][row]> 5 and estudiantes_2020['edad'][row]<=11):
+      estudiantes_2020['variable'][row] = 'infancia'
+    elif estudiantes_2020['edad'][row]>11 and estudiantes_2020['edad'][row]<=17:
+      estudiantes_2020['variable'][row] = 'adolescencia'
+  poblacion_educacion.porcentaje = poblacion_educacion.porcentaje.astype('float64')
+  poblacion_educacion.id = poblacion_educacion.id.astype('float64')
+  poblacion_educacion.primera_infancia_2021 = poblacion_educacion.primera_infancia_2021.astype('float64')
+  poblacion_educacion.infancia_2021 = poblacion_educacion.primera_infancia_2021.astype('float64')
+  poblacion_educacion.adolencencia_2021 = poblacion_educacion.adolencencia_2021.astype('float64')
+  poblacion_educacion = poblacion_educacion.drop(columns=['f1'])
+  poblacion_educacion["primera_infancia_2020"] = poblacion_educacion["primera_infancia_2021"]/1.13
+  poblacion_educacion["primera_infancia_2019"] = poblacion_educacion["primera_infancia_2020"]/1.13
+  poblacion_educacion["primera_infancia_2018"] = poblacion_educacion["primera_infancia_2019"]/1.13
+
+  poblacion_educacion["infancia_2020"] = poblacion_educacion["infancia_2021"]/1.13
+  poblacion_educacion["infancia_2019"] = poblacion_educacion["infancia_2020"]/1.13
+  poblacion_educacion["infancia_2018"] = poblacion_educacion["infancia_2019"]/1.13
+
+  poblacion_educacion["adolencencia_2020"] = poblacion_educacion["adolencencia_2021"]/1.13
+  poblacion_educacion["adolencencia_2019"] = poblacion_educacion["adolencencia_2020"]/1.13
+  poblacion_educacion["adolencencia_2018"] = poblacion_educacion["adolencencia_2019"]/1.13
+
+  estudiantes_comuna=estudiantes_2020.groupby(['numero_comuna','nombre_comuna','variable']).size().to_frame().reset_index().sort_values('variable', ascending=False).reset_index().drop(columns='index').rename(columns={0:'matriculados_2020'})
+  estudiantes_comuna['id']=estudiantes_comuna['numero_comuna']
+
+  matriculas = poblacion_educacion.merge(estudiantes_comuna, how='outer',on='id')
+  matriculas = matriculas.drop(columns=['porcentaje','pob_2021','pob_2020','pob_2019','pob_2018','infancia_2021','primera_infancia_2021','adolencencia_2021','nombre_comuna','numero_comuna',
+                                        'primera_infancia_2019','primera_infancia_2018','infancia_2019','infancia_2018','adolencencia_2019','adolencencia_2018'])
+  matriculas = matriculas.drop(labels=[51,52,53,54,55,56,57], axis=0)
+  matriculas['%tasa_matriculas_2020']=np.nan
+
+  for row in range(len(matriculas)):
+    if matriculas['variable'][row] == 'primera_infancia':
+      matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['primera_infancia_2020'][row]*100
+    elif matriculas['variable'][row] == 'infancia':
+      matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['infancia_2020'][row]*100
+    elif matriculas['variable'][row] == 'adolescencia':
+      matriculas['%tasa_matriculas_2020'][row] = matriculas['matriculados_2020'][row]/matriculas['adolencencia_2020'][row]*100
+  matriculas['id']=matriculas['id'].astype('int32')
+
+  path='datasets/ComunasWGS84.geojson'
   fig = px.choropleth_mapbox(matriculas[matriculas['variable']==edades], geojson=path,
                            featureidkey = 'properties.NOMBRE', # key the geo data
                            locations= "id", # key the dataframe with geodata.
@@ -379,7 +380,7 @@ layout = html.Div([
             id='features-dropdown-age', value='primera_infancia', clearable=False,
             options=[{'label': key, 'value': value}
                 for key, value in list_edades.items()]
-        ),style={"padding-left": "4%","padding-right": "4%"}),
+        ),className='five columns',style={"padding-left": "4%","padding-right": "4%"}),
     dcc.Graph(id='bar-map-education', figure={}, className = "five columns"),
 
 

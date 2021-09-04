@@ -344,7 +344,7 @@ def plot_matriculas(edades):
   path='datasets/ComunasWGS84.geojson'
   geo_str = json.dumps(json.load(open(path, 'r'))) # map data
   nameb=json.loads(geo_str)
-  fig = px.choropleth_mapbox(matriculas[matriculas['variable']==edades], geojson=path,
+  fig = px.choropleth_mapbox(matriculas[matriculas['variable']==edades], geojson=nameb,
                            featureidkey = 'properties.NOMBRE', # key the geo data
                            locations= "id", # key the dataframe with geodata.
                            color='%tasa_matriculas_2020',# columns to plot value

@@ -35,12 +35,12 @@ layout = html.Div([
             id='grupos-dropdown-jaz', value='primera infancia', clearable=False,
             options=[{'label': key, 'value': value}
                 for key, value in group_age.items()]
-        ), className='five columns'),
+        ), className='five columns',style={"padding-left": "4%","padding-right": "4%"}),
         html.Div(dcc.Dropdown(
             id='grupos-dropdown-jaz2', value=2019, clearable=False,
             options=[{'label': key, 'value': value}
                 for key, value in year.items()]
-        ), className='five columns'),
+        ), className='five columns',style={"padding-left": "4%","padding-right": "4%"}),
     ], className='row'),
     dcc.Graph(id='my-bar-prueba-jaz', figure={}, className = "five columns"),
 

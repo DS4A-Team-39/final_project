@@ -144,7 +144,7 @@ a.Integrante__nombre:hover {
   margin-top: 20px;
   font-size: 1.4rem;
   margin-right: 20px;
-
+  margin-bottom: 100px;
 }
 
 .container {
@@ -499,6 +499,10 @@ hr {
   content: "";
   display: table;
   clear: both; }
+.row 
+{
+  margin-left: 20px;
+}
 
 
 /* Media Queries
